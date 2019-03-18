@@ -83,7 +83,7 @@ export default class Item extends React.Component {
                     const linkedItemTitle = linkedItem[titlePropName]
                     const categoryName    = metadata[category].displayName
                                         
-                    return <a key={key} href="/">{ `${linkedItemTitle} (${categoryName})`  }</a>
+                    return <a key={key} href="/">{ `${linkedItemTitle} (${categoryName})` }</a>
                   }                  
                 }
               })
