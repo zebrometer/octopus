@@ -1,10 +1,16 @@
 .item {
+  position: relative;
   display: flex;
   border: 1px solid rgba(0, 0, 0, .1);
   padding: 1rem;
   margin: .5rem 0;
   border-radius: .2rem;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.05);
+
+  &.compact {
+    border: none;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0);
+  }
 
   &:hover {
     .actions {
@@ -19,6 +25,31 @@
           transition: opacity .3s;
         }
       }  
+    }
+  }
+
+  .linked-item {
+    position: absolute;
+    bottom: 0;
+    left: -1px;
+    right: -1px;
+    background-color: white;
+    transform: translateY(100%) rotateX(90deg) translateY(-1px);
+    transition: transform .3s;
+    transform-origin: top;
+    z-index: 2000;
+    opacity: 0;
+    
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-top-color: transparent;
+    padding: 2rem;
+    
+
+    &.show-item {
+      opacity: 1;
+      transform: translateY(100%) rotateX(0) translateY(-1px);
+      transition: transform .3s;
+      box-shadow: 0 10px 1rem 0 rgba(0, 0, 0, 0.05);
     }
   }
 

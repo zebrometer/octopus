@@ -29,10 +29,12 @@ class ItemList extends React.Component {
 
         {
           categoryItems.map((item) => {
-            return <Item
+            return <Item              
               key={item.id}
               item={item}
               data={data}
+              compact={false}
+              metadata={metadata}
               categoryMetadata={categoryMetadata}
               filterCriteria={filterCriteria}
               onItemSelected={this.handleItemSelected} />

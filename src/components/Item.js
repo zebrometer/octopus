@@ -11,13 +11,14 @@ export default class Item extends React.Component {
   static propTypes = {
     item:             PropTypes.object.isRequired,    
     data:             PropTypes.object.isRequired,
+    compact:          PropTypes.bool.isRequired,
     filterCriteria:   PropTypes.object.isRequired,
-    onItemSelected:   PropTypes.func.isRequired,
+    onItemSelected:   PropTypes.func,
     categoryMetadata: PropTypes.object.isRequired,
   }
 
   state = {
-    loaded: false,
+    linkedItem: null,
   }
 
   renderHighlight = (label, value, key) => {
@@ -35,31 +36,30 @@ export default class Item extends React.Component {
     )
   }
 
-  handleImageLoaded = () => {
-    this.setState({ loaded: true })
-  }
-
-  handleImageClick = () => {
-    const { item, onItemSelected } = this.props
-
-    onItemSelected(item)
-  }
-
   handleEdit = () => {
     alert('edit')
   }
 
-  render() {
-    const { item, categoryMetadata, data } = this.props
+  handleLinkedItem = (item) => {
+    const linkedItem = this.state.linkedItem
+      ? null
+      : item
+    this.setState({ linkedItem })
+  }
 
-    const title      = item[categoryMetadata.titlePropName]
-    const properties = categoryMetadata.properties || []
-    
+  render() {
+    const { item, categoryMetadata, data, compact } = this.props
+    const { linkedItem } = this.state
+
+    const title          = item[categoryMetadata.titlePropName]
+    const properties     = categoryMetadata.properties || []    
     const linkProperties = categoryMetadata.linkProperties || []
-    console.log('linkProperties', linkProperties)
+
+    const className       = classnames('item', { compact })
+    const linkedItemClass = classnames('linked-item', { 'show-item': linkedItem })
 
     return (
-      <div className="item">
+      <div className={className}>
         <div className="content">
           <div className="header">
             <div className="title">
@@ -68,7 +68,7 @@ export default class Item extends React.Component {
 
             <div className="links">
             {
-              linkProperties && linkProperties.map((linkProp) => {
+              !compact && linkProperties && linkProperties.map((linkProp) => {
                 if (item[linkProp.propName]) {
                   const key      = item[linkProp.propName]
                   const category = linkProp.category                  
@@ -82,8 +82,17 @@ export default class Item extends React.Component {
                     const titlePropName   = metadata[category].titlePropName
                     const linkedItemTitle = linkedItem[titlePropName]
                     const categoryName    = metadata[category].displayName
+
+                    const handleLinkedItem = (event) => {
+                      event.preventDefault()
+                      this.handleLinkedItem(linkedItem)
+                    }
                                         
-                    return <a key={key} href="/">{ `${linkedItemTitle} (${categoryName})` }</a>
+                    return (
+                      <a key={key} href="/" onClick={handleLinkedItem}>
+                        { `${linkedItemTitle} (${categoryName})` }
+                      </a>
+                    )
                   }                  
                 }
               })
@@ -108,8 +117,27 @@ export default class Item extends React.Component {
           }
         </div>
 
-        <div className="actions">
-          <Icon name="edit" onClick={this.handleEdit} />
+        {
+          !compact && (
+            <div className="actions">
+              <Icon name="edit" onClick={this.handleEdit} />
+            </div>  
+          )
+        }
+
+        <div className={linkedItemClass}>
+          {
+            !compact && linkedItem && (
+              <Item
+                compact={true}
+                item={linkedItem}
+                data={data}
+                categoryMetadata={categoryMetadata}
+                filterCriteria={{}}
+                metadata={this.props.metadata}
+              />  
+            )
+          }
         </div>
       </div>
     )
