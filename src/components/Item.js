@@ -3,23 +3,23 @@ import './styles/item.scss'
 import React       from 'react'
 import PropTypes   from 'prop-types'
 import classnames  from 'classnames'
-import { Icon }    from 'semantic-ui-react'
+// import { Icon }    from 'semantic-ui-react'
 
-import metadata from '../redux/metadata'
+// import metadata from '../redux/metadata'
 
 export default class Item extends React.Component {
   static propTypes = {
-    item:             PropTypes.object.isRequired,    
-    data:             PropTypes.object.isRequired,
-    compact:          PropTypes.bool.isRequired,
-    filterCriteria:   PropTypes.object.isRequired,
-    onItemSelected:   PropTypes.func,
-    categoryMetadata: PropTypes.object.isRequired,
+    item:               PropTypes.object.isRequired,    
+    data:               PropTypes.object.isRequired,
+    // compact:            PropTypes.bool.isRequired,
+    filterCriteria:     PropTypes.object.isRequired,
+    onItemSelected:     PropTypes.func.isRequired,
+    categoryMetadata:   PropTypes.object.isRequired,    
   }
 
-  state = {
-    linkedItem: null,
-  }
+  // state = {
+  //   linkedItem: null,
+  // }
 
   renderHighlight = (label, value, key) => {
     const { filterCriteria } = this.props
@@ -36,30 +36,35 @@ export default class Item extends React.Component {
     )
   }
 
-  handleEdit = () => {
-    alert('edit')
-  }
+  // handleEdit = () => {
+  //   alert('edit')
+  // }
 
-  handleLinkedItem = (item) => {
-    const linkedItem = this.state.linkedItem
-      ? null
-      : item
-    this.setState({ linkedItem })
+  // handleLinkedItem = (item) => {
+  //   const linkedItem = this.state.linkedItem
+  //     ? null
+  //     : item
+  //   this.setState({ linkedItem })
+  // }
+
+  handleItemSelected = () => {
+    const { onItemSelected, item } = this.props
+    onItemSelected(item)
   }
 
   render() {
-    const { item, categoryMetadata, data, compact } = this.props
-    const { linkedItem } = this.state
+    const { item, categoryMetadata/*, data, compact*/ } = this.props
+    // const { linkedItem } = this.state
 
     const title          = item[categoryMetadata.titlePropName]
     const properties     = categoryMetadata.properties || []    
-    const linkProperties = categoryMetadata.linkProperties || []
+    // const linkProperties = categoryMetadata.linkProperties || []
 
-    const className       = classnames('item', { compact })
-    const linkedItemClass = classnames('linked-item', { 'show-item': linkedItem })
+    // const className       = classnames('item', { compact })
+    // const linkedItemClass = classnames('linked-item', { 'show-item': linkedItem })
 
     return (
-      <div className={className}>
+      <div className="item" onClick={this.handleItemSelected}>
         <div className="content">
           <div className="header">
             <div className="title">
@@ -68,34 +73,34 @@ export default class Item extends React.Component {
 
             <div className="links">
             {
-              !compact && linkProperties && linkProperties.map((linkProp) => {
-                if (item[linkProp.propName]) {
-                  const key      = item[linkProp.propName]
-                  const category = linkProp.category                  
+              // !compact && linkProperties && linkProperties.map((linkProp) => {
+              //   if (item[linkProp.propName]) {
+              //     const key      = item[linkProp.propName]
+              //     const category = linkProp.category                  
 
-                  const linkedCategoryItems = data[category]
-                  const linkedItem          = linkedCategoryItems.find((linkedCategoryItem) => {
-                    return linkedCategoryItem[linkProp.destinationPropName] === key
-                  })
+              //     const linkedCategoryItems = data[category]
+                  // const linkedItem          = linkedCategoryItems.find((linkedCategoryItem) => {
+                  //   return linkedCategoryItem[linkProp.destinationPropName] === key
+                  // })
 
-                  if (linkedItem) {
-                    const titlePropName   = metadata[category].titlePropName
-                    const linkedItemTitle = linkedItem[titlePropName]
-                    const categoryName    = metadata[category].displayName
+              //     if (linkedItem) {
+              //       const titlePropName   = metadata[category].titlePropName
+              //       const linkedItemTitle = linkedItem[titlePropName]
+              //       const categoryName    = metadata[category].displayName
 
-                    const handleLinkedItem = (event) => {
-                      event.preventDefault()
-                      this.handleLinkedItem(linkedItem)
-                    }
+              //       const handleLinkedItem = (event) => {
+              //         event.preventDefault()
+              //         this.handleLinkedItem(linkedItem)
+              //       }
                                         
-                    return (
-                      <a key={key} href="/" onClick={handleLinkedItem}>
-                        { `${linkedItemTitle} (${categoryName})` }
-                      </a>
-                    )
-                  }                  
-                }
-              })
+              //       return (
+              //         <a key={key} href="/" onClick={handleLinkedItem}>
+              //           { `${linkedItemTitle} (${categoryName})` }
+              //         </a>
+              //       )
+              //     }                  
+              //   }
+              // })
             }
             </div>
           </div>
@@ -118,14 +123,14 @@ export default class Item extends React.Component {
         </div>
 
         {
-          !compact && (
-            <div className="actions">
-              <Icon name="edit" onClick={this.handleEdit} />
-            </div>  
-          )
+          // !compact && (
+          //   <div className="actions">
+          //     <Icon name="edit" onClick={this.handleEdit} />
+          //   </div>  
+          // )
         }
 
-        <div className={linkedItemClass}>
+        {/* <div className={linkedItemClass}>
           {
             !compact && linkedItem && (
               <Item
@@ -138,7 +143,7 @@ export default class Item extends React.Component {
               />  
             )
           }
-        </div>
+        </div> */}
       </div>
     )
   }

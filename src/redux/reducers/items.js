@@ -29,15 +29,12 @@ function getFilteredItems(filterCriteria, data) {
 
   const filterProps = metadata[filterCriteria.category].filterProperties
 
-  const filtered = unfiltered.filter((item) => {
+  return unfiltered.filter((item) => {
     return filterProps.find((filterProp) => {
       return item[filterProp]
         && item[filterProp].toLowerCase().indexOf(filterCriteria.filter.toLowerCase()) >= 0
     })
-  })
-
-  console.log('filtered', filtered)
-  return filtered
+  })  
 }
 
 export default function products(state = initialState, action) {

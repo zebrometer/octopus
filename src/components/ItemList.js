@@ -4,18 +4,22 @@ import React       from 'react'
 import PropTypes   from 'prop-types'
 import { connect } from 'react-redux'
 
-import Item            from './Item'
-import Searchbar       from './Searchbar'
-import metadata        from '../redux/metadata'
+import Item      from './Item'
+import Searchbar from './Searchbar'
+import metadata  from '../redux/metadata'
 
 class ItemList extends React.Component {
   static propTypes = {
     data:             PropTypes.object.isRequired,
+    history:          PropTypes.object.isRequired,
     filterCriteria:   PropTypes.object.isRequired,
     selectedCategory: PropTypes.string.isRequired,
   }
 
-  handleItemSelected = (item) => {}
+  handleItemSelected = (item) => {
+    const { selectedCategory } = this.props
+    this.props.history.push(`/category/${selectedCategory}/item/${item.id}`)
+  }
 
   render() {
     const { selectedCategory, filteredItems, filterCriteria, data } = this.props
@@ -45,9 +49,7 @@ class ItemList extends React.Component {
   }
 }
 
-const mapDispatchToProps = {  
-  // setSelectedCategory,
-}
+const mapDispatchToProps = {}
 const mapStateToProps = (state) => ({
   selectedCategory: state.items.selectedCategory,
   data:             state.items.data,
