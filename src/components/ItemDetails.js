@@ -10,8 +10,9 @@ import metadata  from '../redux/metadata'
 
 class ItemDetails extends React.Component {
   static propTypes = {
-    data:  PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired,
+    data:    PropTypes.object.isRequired,
+    match:   PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   renderNoData = () => {
@@ -33,8 +34,8 @@ class ItemDetails extends React.Component {
     )
   }
 
-  handleLink = (linkedItem) => {
-    console.log('linkedItem', linkedItem)
+  handleLink = (linkedItem, category) => {
+    this.props.history.push(`/category/${category}/item/${linkedItem.id}`)
   }
 
   render() {
@@ -64,7 +65,7 @@ class ItemDetails extends React.Component {
                 properties.map(({ propName, label }, index) => {
                   const prop = item[propName]
                   
-                  return (
+                  return prop && (
                     <div className="property" key={index}>
                       <div className="prop-name">{ label }</div>
                       <div className="prop-value">{ prop }</div>
@@ -99,7 +100,7 @@ class ItemDetails extends React.Component {
 
                       const handleLink = (event) => {
                         event.preventDefault()
-                        this.handleLink(linkedItem)
+                        this.handleLink(linkedItem, category)
                       }
 
                       return <a href="/" key={linkedItem.id} onClick={handleLink}>{ text }</a>

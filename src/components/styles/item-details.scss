@@ -1,4 +1,8 @@
 .item-details {
+  > h1 {
+    margin-bottom: 3rem;
+  }
+
   .properties {
     margin: -.2rem;
 
@@ -15,5 +19,9 @@
         font-weight: 600;
       }
     }
+  }
+
+  .links {
+    margin-top: 3rem;
   }
 }
