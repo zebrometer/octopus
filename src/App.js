@@ -1,28 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './styles/app.scss'
 
-class App extends Component {
+import React     from 'react'
+import PropTypes from 'prop-types'
+
+import { Route, Switch, withRouter } from 'react-router'
+
+import Bootstrap from './Bootstrap'
+import Navbar    from './components/Navbar'
+import ItemList  from './components/ItemList'
+
+class App extends React.Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+  }
+
   render() {
+    const { history } = this.props
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="app">
+        <Bootstrap />
+
+        <div className="content">
+          <Navbar history={history} />
+
+          <div className="item-list-container">
+            <ItemList />
+          </div>
+        </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default withRouter(App)

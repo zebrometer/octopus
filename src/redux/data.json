@@ -1,0 +1,98 @@
+{
+  "dataSystems": [
+    {
+      "id": 1,
+      "name": "CONA Systems"
+    },
+    {
+      "id": 2,
+      "name": "CBS"
+    },
+    {
+      "id": 3,
+      "name": "CCNA USA"
+    },
+    {
+      "id": 4,
+      "name": "Southwest Beverages"
+    },
+    {
+      "id": 5,
+      "name": "Quikway"
+    }
+  ],
+  "dataTypes": [
+    {
+      "id": 1,
+      "name": "Invoice"
+    },
+    {
+      "id": 2,
+      "name": "Matrix Data"
+    },
+    {
+      "id": 3,
+      "name": "Credit/Debit Adj"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "integrationId": 1,
+      "sender": "Southwest Beverages",
+      "dataType": "Invoice",
+      "receiver": "Quickway",
+      "receivedTimestamp": "2019-03-01T12:00:00",
+      "deliveredTimestamp": "2019-03-01T12:30:00",
+      "status": "Delivered"
+    },
+    {
+      "id": 2,
+      "integrationId": 1,
+      "sender": "Southwest Beverages",
+      "dataType": "Invoice",
+      "receiver": "Quickway",
+      "receivedTimestamp": "2019-03-02T12:00:00",
+      "status": "Failed"
+    },
+    {
+      "id": 3,
+      "integrationId": 2,
+      "sender": "CONA System",
+      "dataType": "Matrix Data",
+      "receiver": "CBS",
+      "receivedTimestamp": "2019-03-01T12:00:00",
+      "deliveredTimestamp": "2019-03-01T12:30:00",
+      "status": "Delivered"
+    },
+    {
+      "id": 4,
+      "integrationId": 3,
+      "sender": "CONA USA",
+      "dataType": "Credit/Debig Adj",
+      "receiver": "CONA USA",
+      "receivedTimestamp": "2019-03-01T12:00:00",
+      "deliveredTimestamp": "2019-03-01T12:30:00",
+      "status": "Delivered"
+    }
+  ],
+  "integrations": [
+    {
+      "id": 1,
+      "sender": "Southwest Beverages",
+      "dataType": "Invoice"
+    },
+    {
+      "id": 2,
+      "sender": "CONA System",
+      "receiver": "CBS",
+      "dataType": "Matrix Data"
+    },
+    {
+      "id": 3,
+      "sender": "CCNA USA",
+      "receiver": "CCNA USA",
+      "dataType": "Credit/Debig Adj"
+    }
+  ]
+}
