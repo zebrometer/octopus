@@ -18,10 +18,10 @@ class ItemList extends React.Component {
   handleItemSelected = (item) => {}
 
   render() {
-    const { selectedCategory, filteredItems, filterCriteria } = this.props
+    const { selectedCategory, filteredItems, filterCriteria, data } = this.props
 
-    const categoryItems = filteredItems
-    const renderProps   = metadata[selectedCategory]
+    const categoryItems    = filteredItems
+    const categoryMetadata = metadata[selectedCategory]
 
     return (
       <div className="item-list">
@@ -32,7 +32,8 @@ class ItemList extends React.Component {
             return <Item
               key={item.id}
               item={item}
-              renderProps={renderProps}
+              data={data}
+              categoryMetadata={categoryMetadata}
               filterCriteria={filterCriteria}
               onItemSelected={this.handleItemSelected} />
           })

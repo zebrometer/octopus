@@ -5,12 +5,15 @@ import PropTypes   from 'prop-types'
 import classnames  from 'classnames'
 import { Icon }    from 'semantic-ui-react'
 
+import metadata from '../redux/metadata'
+
 export default class Item extends React.Component {
   static propTypes = {
-    item:           PropTypes.object.isRequired,
-    renderProps:    PropTypes.object.isRequired,
-    filterCriteria: PropTypes.object.isRequired,
-    onItemSelected: PropTypes.func.isRequired,
+    item:             PropTypes.object.isRequired,    
+    data:             PropTypes.object.isRequired,
+    filterCriteria:   PropTypes.object.isRequired,
+    onItemSelected:   PropTypes.func.isRequired,
+    categoryMetadata: PropTypes.object.isRequired,
   }
 
   state = {
@@ -18,9 +21,6 @@ export default class Item extends React.Component {
   }
 
   renderHighlight = (label, value, key) => {
-    // const highlight = this.props.searchCriteria.sortProperty === proprtyName
-    // const className = classnames('ui mini message', { highlight })
-
     const { filterCriteria } = this.props
 
     const isFiltered = filterCriteria.filter && value.toLowerCase().indexOf(filterCriteria.filter.toLowerCase()) >= 0
@@ -50,16 +50,45 @@ export default class Item extends React.Component {
   }
 
   render() {
-    const { item, renderProps } = this.props
+    const { item, categoryMetadata, data } = this.props
 
-    const title      = item[renderProps.titlePropName]
-    const properties = renderProps.properties || []
+    const title      = item[categoryMetadata.titlePropName]
+    const properties = categoryMetadata.properties || []
+    
+    const linkProperties = categoryMetadata.linkProperties || []
+    console.log('linkProperties', linkProperties)
 
     return (
       <div className="item">
         <div className="content">
-          <div className="title">
-            { title }
+          <div className="header">
+            <div className="title">
+              { title }
+            </div>
+
+            <div className="links">
+            {
+              linkProperties && linkProperties.map((linkProp) => {
+                if (item[linkProp.propName]) {
+                  const key      = item[linkProp.propName]
+                  const category = linkProp.category                  
+
+                  const linkedCategoryItems = data[category]
+                  const linkedItem          = linkedCategoryItems.find((linkedCategoryItem) => {
+                    return linkedCategoryItem[linkProp.destinationPropName] === key
+                  })
+
+                  if (linkedItem) {
+                    const titlePropName   = metadata[category].titlePropName
+                    const linkedItemTitle = linkedItem[titlePropName]
+                    const categoryName    = metadata[category].displayName
+                                        
+                    return <a key={key} href="/">{ `${linkedItemTitle} (${categoryName})`  }</a>
+                  }                  
+                }
+              })
+            }
+            </div>
           </div>
 
           {
@@ -82,26 +111,6 @@ export default class Item extends React.Component {
         <div className="actions">
           <Icon name="edit" onClick={this.handleEdit} />
         </div>
-
-
-        {/* <div className={imageClass} onClick={this.handleImageClick}>
-          <img alt='leotard' src={item.image} onLoad={this.handleImageLoaded}></img>
-        </div> */}
-
-        {/* <div className="details">
-          <div className="product-header">
-            <div className="product-title">{ item.title }</div>
-            <div className="product-price">{ `$${item.price}` }</div>
-          </div>
-          <div className="product-highlights">
-            { this.renderHighlight(`${item.n_stones} Stones`, 'n_stones') }
-            { this.renderHighlight(`Posted By: ${item.owner}`, 'owner')   }
-            { this.renderHighlight(`Size: ${item.size}`,       'size')    }
-
-            { item['4rent'] && this.renderHighlight('For Rent', '4rent')  }
-          </div>
-          <div className="product-description">{ item.description }</div>
-        </div> */}
       </div>
     )
   }

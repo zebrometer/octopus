@@ -1,17 +1,20 @@
 export default {
   dataSystems: {
+    displayName:   'Data System',
     titlePropName: 'name',
     filterProperties: [
       'name',
     ],
   },
   dataTypes: {
+    displayName:   'Data Type',
     titlePropName: 'name',
     filterProperties: [
       'name',
     ],
   },
   integrations: {
+    displayName:   'Integration',
     titlePropName: 'sender',
     properties: [
       { propName: 'dataType', label: 'Data Type' },
@@ -25,6 +28,7 @@ export default {
     ]
   },
   transactions: {
+    displayName:   'Transaction',
     titlePropName: 'sender',
     properties: [
       { propName: 'sender',   label: 'Sender' },
@@ -38,5 +42,8 @@ export default {
       'receiver',
       'status',
     ],
+    linkProperties: [
+      { propName: 'integrationId', destinationPropName: 'id', category: 'integrations' },
+    ]
   },
 }
