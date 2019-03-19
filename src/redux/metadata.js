@@ -59,15 +59,14 @@ export default {
       { propName: 'dataType', label: 'Data Type', linkTo: { category: 'dataTypes', destinationPropName: 'name' } },
       { propName: 'receiver', label: 'Receiver', linkTo: { category: 'dataSystems', destinationPropName: 'name' } },
       { propName: 'status',   label: 'Status' },
+        { propName: 'integrationId', label: 'Integration', linkTo: { destinationPropName: 'id',  category: 'integrations', }},
+        { propName: 'parentId', label: 'Parent', linkTo: { destinationPropName: 'id',  category: 'transactions', }},
     ],
     filterProperties: [
       'sender',
       'dataType',
       'receiver',
       'status',
-    ],
-    linkProperties: [
-      { propName: 'integrationId', destinationPropName: 'id',   category: 'integrations', singleton: true },
     ]
   },
 }

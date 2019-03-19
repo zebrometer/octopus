@@ -67,6 +67,16 @@
     },
     {
       "id": 4,
+      "integrationId": 4,
+      "sender": "CCNA USA",
+      "dataType": "Credit/Debit Adj",
+      "receivedTimestamp": "2019-03-01T12:00:00",
+      "deliveredTimestamp": "2019-03-01T12:30:00",
+      "status": "Delivered"
+    },
+    {
+      "id": 5,
+      "parentId": 4,
       "integrationId": 3,
       "sender": "CCNA USA",
       "dataType": "Credit/Debit Adj",
@@ -92,6 +102,11 @@
       "id": 3,
       "sender": "CCNA USA",
       "receiver": "CCNA USA",
+      "dataType": "Credit/Debit Adj"
+    },
+    {
+      "id": 4,
+      "sender": "CCNA USA",
       "dataType": "Credit/Debit Adj"
     }
   ]
