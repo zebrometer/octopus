@@ -141,25 +141,26 @@ class ItemDetails extends React.Component {
                     }
                   } else if (item[linkProp.propName]) {
                       const category = linkProp.category
-
                       const linkedCategoryItems = data[category]
-                    return (
+
+                      return (
                         <div>
                         <h2>{linkProp.title}</h2>
-                          {linkedCategoryItems.filter(function(linkedItem) {
-return linkedItem[linkProp.destinationPropName] == item[linkProp.propName]
-                        }).map(function(linkedItem) {
-                            const handleLink = (event) => {
-                            event.preventDefault()
-                            this.handleLink(linkedItem, category)
-                        }
+                          {
+                            linkedCategoryItems.filter(function(linkedItem) {
+                              return linkedItem[linkProp.destinationPropName] == item[linkProp.propName]
+                            }).map((linkedItem) => {
+                              const handleLink = (event) => {
+                                event.preventDefault()
+                                this.handleLink(linkedItem, category)
+                              }
                               const linkedItemTitle = metadata[category].name(linkedItem)
                             return (
                                 <div>
-                                <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ linkedItemTitle }</a>
+                                  <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ linkedItemTitle }</a>
                                 </div>
-                            )
-                        })}
+                              )
+                          })}
                         </div>
                     )
                   }
