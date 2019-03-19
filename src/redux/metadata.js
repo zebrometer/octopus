@@ -1,7 +1,9 @@
 export default {
   dataSystems: {
     displayName:   'Data System',
-    titlePropName: 'name',
+      name(item) {
+      return item.name
+      },
     filterProperties: [
       'name',
     ],
@@ -12,7 +14,9 @@ export default {
   },
   dataTypes: {
     displayName:   'Data Type',
-    titlePropName: 'name',
+      name(item) {
+          return item.name
+      },
     filterProperties: [
       'name',
     ],
@@ -22,7 +26,11 @@ export default {
   },
   integrations: {
     displayName:   'Integration',
-    titlePropName: 'sender',
+      name(item) {
+          return item.receiver
+              ? `${item.sender} ${item.dataType} to ${item.receiver}`
+              : `${item.sender} ${item.dataType}`
+      },
     properties: [
       { propName: 'dataType', label: 'Data Type' },
       { propName: 'sender',   label: 'Sender' },
@@ -42,7 +50,11 @@ export default {
   },
   transactions: {
     displayName:   'Transaction',
-    titlePropName: 'sender',
+      name(item) {
+          return item.receiver
+              ? `${item.sender} ${item.dataType} to ${item.receiver} - ${item.receivedTimestamp}`
+              : `${item.sender} ${item.dataType} - ${item.receivedTimestamp}`
+      },
     properties: [
       { propName: 'sender',   label: 'Sender' },
       { propName: 'dataType', label: 'Data Type' },

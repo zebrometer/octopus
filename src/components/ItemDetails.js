@@ -64,7 +64,7 @@ class ItemDetails extends React.Component {
     }
 
     const categoryMetadata = metadata[category]
-    const title            = item[categoryMetadata.titlePropName]
+      const title      = categoryMetadata.name(item)
     const properties       = categoryMetadata.properties || []
     const linkProperties   = categoryMetadata.linkProperties || []
 
@@ -108,8 +108,7 @@ class ItemDetails extends React.Component {
                     })
 
                     if (linkedItem) {
-                      const titlePropName   = metadata[category].titlePropName
-                      const linkedItemTitle = linkedItem[titlePropName]
+                      const linkedItemTitle = metadata[category].name(linkedItem)
                       const categoryName    = metadata[category].displayName
 
                       const text = `${linkedItemTitle} (${categoryName})`

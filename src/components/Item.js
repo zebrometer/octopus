@@ -51,7 +51,7 @@ export default class Item extends React.Component {
 
     const className = classnames('xitem', { initted })
 
-    const title      = item[categoryMetadata.titlePropName]
+    const title      = categoryMetadata.name(item)
     const properties = categoryMetadata.properties || []    
 
     return (
