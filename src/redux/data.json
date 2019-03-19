@@ -2,7 +2,7 @@
   "dataSystems": [
     {
       "id": 1,
-      "name": "CONA Systems"
+      "name": "CONA System"
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
     },
     {
       "id": 5,
-      "name": "Quikway"
+      "name": "Quickway"
     }
   ],
   "dataTypes": [
@@ -68,9 +68,9 @@
     {
       "id": 4,
       "integrationId": 3,
-      "sender": "CONA USA",
-      "dataType": "Credit/Debig Adj",
-      "receiver": "CONA USA",
+      "sender": "CCNA USA",
+      "dataType": "Credit/Debit Adj",
+      "receiver": "CCNA USA",
       "receivedTimestamp": "2019-03-01T12:00:00",
       "deliveredTimestamp": "2019-03-01T12:30:00",
       "status": "Delivered"
@@ -92,7 +92,7 @@
       "id": 3,
       "sender": "CCNA USA",
       "receiver": "CCNA USA",
-      "dataType": "Credit/Debig Adj"
+      "dataType": "Credit/Debit Adj"
     }
   ]
 }

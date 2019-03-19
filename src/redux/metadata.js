@@ -2,14 +2,16 @@ export default {
   dataSystems: {
     displayName:   'Data System',
       name(item) {
-      return item.name
+          return item.name
       },
     filterProperties: [
       'name',
     ],
     linkProperties: [
-      { propName: 'name', destinationPropName: 'receiver', category: 'transactions' },
-      { propName: 'name', destinationPropName: 'receiver', category: 'integrations' },
+        { propName: 'name', destinationPropName: 'sender', category: 'integrations', title: 'Sending Integrations' },
+        { propName: 'name', destinationPropName: 'receiver', category: 'integrations', title: 'Receiving Integrations' },
+        { propName: 'name', destinationPropName: 'sender', category: 'transactions', title: 'Sending Transactions' },
+      { propName: 'name', destinationPropName: 'receiver', category: 'transactions', title: 'Receiving Transactions' },
     ],
   },
   dataTypes: {
@@ -21,7 +23,8 @@ export default {
       'name',
     ],
     linkProperties: [
-      { propName: 'name', destinationPropName: 'dataType', category: 'transactions' },
+        { propName: 'name', destinationPropName: 'dataType', category: 'integrations', title: 'Integrations' },
+        { propName: 'name', destinationPropName: 'dataType', category: 'transactions', title: 'Transactions' },
     ],
   },
   integrations: {
@@ -32,20 +35,14 @@ export default {
               : `${item.sender} ${item.dataType}`
       },
     properties: [
-      { propName: 'dataType', label: 'Data Type' },
-      { propName: 'sender',   label: 'Sender' },
-      { propName: 'receiver', label: 'Receiver' },
+        { propName: 'sender',   label: 'Sender', linkTo: { category: 'dataSystems', destinationPropName: 'name' } },
+        { propName: 'dataType', label: 'Data Type', linkTo: { category: 'dataTypes', destinationPropName: 'name' } },
+        { propName: 'receiver', label: 'Receiver', linkTo: { category: 'dataSystems', destinationPropName: 'name' } },
     ],
     filterProperties: [
       'dataType',
       'sender',
       'receiver',
-    ],
-    linkProperties: [
-      { propName: 'sender',   destinationPropName: 'name',   category: 'dataSystems'  },
-      { propName: 'sender',   destinationPropName: 'sender', category: 'transactions' },
-      { propName: 'dataType', destinationPropName: 'name',   category: 'dataTypes'    },
-      
     ],
   },
   transactions: {
@@ -56,9 +53,9 @@ export default {
               : `${item.sender} ${item.dataType} - ${item.receivedTimestamp}`
       },
     properties: [
-      { propName: 'sender',   label: 'Sender' },
-      { propName: 'dataType', label: 'Data Type' },
-      { propName: 'receiver', label: 'Receiver' },
+      { propName: 'sender',   label: 'Sender', linkTo: { category: 'dataSystems', destinationPropName: 'name' } },
+      { propName: 'dataType', label: 'Data Type', linkTo: { category: 'dataTypes', destinationPropName: 'name' } },
+      { propName: 'receiver', label: 'Receiver', linkTo: { category: 'dataSystems', destinationPropName: 'name' } },
       { propName: 'status',   label: 'Status' },
     ],
     filterProperties: [
@@ -68,10 +65,7 @@ export default {
       'status',
     ],
     linkProperties: [
-      { propName: 'integrationId', destinationPropName: 'id',   category: 'integrations' },
-      { propName: 'sender',        destinationPropName: 'name', category: 'dataSystems'  },
-      // { propName: 'receiver',      destinationPropName: 'name', category: 'dataSystems'  },
-      { propName: 'dataType',      destinationPropName: 'name', category: 'dataTypes'  },
+      { propName: 'integrationId', destinationPropName: 'id',   category: 'integrations', singleton: true },
     ]
   },
 }

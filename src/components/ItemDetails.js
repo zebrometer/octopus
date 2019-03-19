@@ -78,8 +78,30 @@ class ItemDetails extends React.Component {
           properties.length > 0 && (
             <div className="properties">
               {
-                properties.map(({ propName, label }, index) => {
+                properties.map(({ linkTo, propName, label }, index) => {
                   const prop = item[propName]
+
+                    if (prop && linkTo) {
+                        const key      = item[propName]
+                        const category = linkTo.category
+
+                        const linkedCategoryItems = data[category]
+                        const linkedItem          = linkedCategoryItems.find((linkedCategoryItem) => {
+                            return linkedCategoryItem[linkTo.destinationPropName] === key
+                        })
+                        const linkedItemTitle = metadata[category].name(linkedItem)
+
+                        const handleLink = (event) => {
+                            event.preventDefault()
+                            this.handleLink(linkedItem, category)
+                        }
+                        return (
+                            <div className="property" key={index}>
+                                <div className="prop-name">{ label }</div>
+                                <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ linkedItemTitle }</a>
+                            </div>
+                        )
+                    }
                   
                   return prop && (
                     <div className="property" key={index}>
@@ -98,7 +120,7 @@ class ItemDetails extends React.Component {
             <div className="links">
               {
                 linkProperties.map((linkProp, index) => {
-                  if (item[linkProp.propName]) {
+                  if (item[linkProp.propName] && linkProp.singleton) {
                     const key      = item[linkProp.propName]
                     const category = linkProp.category
 
@@ -109,17 +131,37 @@ class ItemDetails extends React.Component {
 
                     if (linkedItem) {
                       const linkedItemTitle = metadata[category].name(linkedItem)
-                      const categoryName    = metadata[category].displayName
-
-                      const text = `${linkedItemTitle} (${categoryName})`
 
                       const handleLink = (event) => {
                         event.preventDefault()
                         this.handleLink(linkedItem, category)
                       }
 
-                      return <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ text }</a>
+                      return <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ linkedItemTitle }</a>
                     }
+                  } else if (item[linkProp.propName]) {
+                      const category = linkProp.category
+
+                      const linkedCategoryItems = data[category]
+                    return (
+                        <div>
+                        <h2>{linkProp.title}</h2>
+                          {linkedCategoryItems.filter(function(linkedItem) {
+return linkedItem[linkProp.destinationPropName] == item[linkProp.propName]
+                        }).map(function(linkedItem) {
+                            const handleLink = (event) => {
+                            event.preventDefault()
+                            this.handleLink(linkedItem, category)
+                        }
+                              const linkedItemTitle = metadata[category].name(linkedItem)
+                            return (
+                                <div>
+                                <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ linkedItemTitle }</a>
+                                </div>
+                            )
+                        })}
+                        </div>
+                    )
                   }
                 })
               }
