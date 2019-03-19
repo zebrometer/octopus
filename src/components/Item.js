@@ -49,10 +49,13 @@ export default class Item extends React.Component {
     const { item, categoryMetadata } = this.props
     const { initted } = this.state
 
-    const className = classnames('xitem', { initted })
-
     const title      = categoryMetadata.name(item)
-    const properties = categoryMetadata.properties || []    
+    const properties = categoryMetadata.properties || []
+
+    const alarmProps = categoryMetadata.alarmProperties || []
+    const hasAlarms  = alarmProps.find(({ propertyName, propertyValue }) => item[propertyName] === propertyValue)
+
+    const className = classnames('xitem', { initted, alarm: hasAlarms })
 
     return (
       <div className={className} onClick={this.handleItemSelected}>

@@ -19,6 +19,10 @@
     // transition-timing-function: cubic-bezier(0.250, 0.250, 0.475, 1.650);
   }
 
+  &.alarm {
+    border: 1px solid #e33a30c4;
+  }
+
   .content {
     flex-grow: 1;
     display: flex;

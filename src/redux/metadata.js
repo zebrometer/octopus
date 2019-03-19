@@ -67,6 +67,9 @@ export default {
       'dataType',
       'receiver',
       'status',
+    ],
+    alarmProperties: [
+      { propertyName: 'status', propertyValue: 'Failed' },
     ]
   },
 }
