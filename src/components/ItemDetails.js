@@ -81,7 +81,7 @@ class ItemDetails extends React.Component {
           linkProperties.length > 0 && (
             <div className="links">
               {
-                linkProperties.map((linkProp) => {
+                linkProperties.map((linkProp, index) => {
                   if (item[linkProp.propName]) {
                     const key      = item[linkProp.propName]
                     const category = linkProp.category
@@ -103,8 +103,7 @@ class ItemDetails extends React.Component {
                         this.handleLink(linkedItem, category)
                       }
 
-                      return <a href="/" key={linkedItem.id} onClick={handleLink}>{ text }</a>
-
+                      return <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ text }</a>
                     }
                   }
                 })

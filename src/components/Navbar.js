@@ -4,7 +4,7 @@ import React       from 'react'
 import PropTypes   from 'prop-types'
 import { connect } from 'react-redux'
 
-import { Menu, Tab, Label } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 
 import { setSelectedCategory } from '../redux/actions/items'
 
