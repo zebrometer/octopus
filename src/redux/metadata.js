@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export default {
   dataSystems: {
     displayName:   'Data System',
@@ -48,9 +50,9 @@ export default {
   transactions: {
     displayName:   'Transaction',
       name(item) {
-          return item.receiver
-              ? `${item.sender} ${item.dataType} to ${item.receiver} - ${item.receivedTimestamp}`
-              : `${item.sender} ${item.dataType} - ${item.receivedTimestamp}`
+        return item.receiver
+          ? `${item.sender} ${item.dataType} to ${item.receiver} - ${moment(item.receivedTimestamp).format('YYYY-MM-DD h:mm')}`
+          : `${item.sender} ${item.dataType} - ${moment(item.receivedTimestamp).format('YYYY-MM-DD h:mm')}`
       },
     properties: [
       { propName: 'sender',   label: 'Sender', linkTo: { category: 'dataSystems', destinationPropName: 'name' } },
