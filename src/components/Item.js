@@ -27,8 +27,8 @@ export default class Item extends React.Component {
 
   renderHighlight = (label, value, key) => {
     const { filterCriteria } = this.props
-
-    const isFiltered = filterCriteria.filter && value.toLowerCase().indexOf(filterCriteria.filter.toLowerCase()) >= 0
+    
+    const isFiltered = filterCriteria.filter && String(value).toLowerCase().indexOf(filterCriteria.filter.toLowerCase()) >= 0
     
     const className  = classnames('ui mini message', { highlight: isFiltered })
 
