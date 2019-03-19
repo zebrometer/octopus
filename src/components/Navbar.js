@@ -17,6 +17,7 @@ class Navbar extends React.Component {
   }
 
   handleCategorySelected = (key) => {
+    this.props.history.push('/')
     this.props.setSelectedCategory(key)
   }
 
