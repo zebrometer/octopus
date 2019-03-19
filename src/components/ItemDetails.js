@@ -3,6 +3,7 @@ import './styles/item-details.scss'
 import React       from 'react'
 import PropTypes   from 'prop-types'
 import { connect } from 'react-redux'
+import classnames  from 'classnames'
 
 import { Placeholder } from 'semantic-ui-react'
 
@@ -13,6 +14,18 @@ class ItemDetails extends React.Component {
     data:    PropTypes.object.isRequired,
     match:   PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+  }
+
+  state = {
+    initted: false,
+  }
+
+  componentDidMount() {    
+    this.setState({ initted: false }, () => {
+      setTimeout(() => {
+        this.setState({ initted: true })
+      }, 0)
+    })
   }
 
   renderNoData = () => {
@@ -40,6 +53,7 @@ class ItemDetails extends React.Component {
 
   render() {
     const { data } = this.props
+    const { initted } = this.state
     const { id, category } = this.props.match.params
 
     const items = data[category] || []
@@ -54,8 +68,10 @@ class ItemDetails extends React.Component {
     const properties       = categoryMetadata.properties || []
     const linkProperties   = categoryMetadata.linkProperties || []
 
+    const className = classnames('item-details', { initted })
+
     return (
-      <div className="item-details">
+      <div className={className}>
         <h1>{ title }</h1>
 
         {

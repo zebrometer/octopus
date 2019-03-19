@@ -1,4 +1,12 @@
 .item-details {
+  opacity: 0;
+  transition: 1s;
+
+  &.initted {
+    opacity: 1;
+    transition: 1s;
+  }
+
   > h1 {
     margin-bottom: 3rem;
   }
