@@ -25,12 +25,17 @@ export default class Item extends React.Component {
     })    
   }
 
-  renderHighlight = (label, value, key) => {
-    const { filterCriteria } = this.props
+  renderHighlight = (label, value, key, propName) => {
+    const { filterCriteria, categoryMetadata } = this.props
     
     const isFiltered = filterCriteria.filter && String(value).toLowerCase().indexOf(filterCriteria.filter.toLowerCase()) >= 0
     
-    const className  = classnames('ui mini message', { highlight: isFiltered })
+    const alarmProps = categoryMetadata.alarmProperties || []
+    const propAlarm  = alarmProps.find(({ propertyName, propertyValue }) => {
+      return propertyName === propName && String(value) === String(propertyValue)
+    })
+
+    const className  = classnames('ui mini message', { highlight: isFiltered, alarm: propAlarm })
 
     return (
       <div className={className} key={key}>
@@ -74,7 +79,7 @@ export default class Item extends React.Component {
                     const prop = item[propName]
     
                     return prop
-                      ? this.renderHighlight(label, prop, index)
+                      ? this.renderHighlight(label, prop, index, propName)
                       : null
                   })
                 }
