@@ -120,29 +120,32 @@ class ItemDetails extends React.Component {
             <div className="links">
               {
                 linkProperties.map((linkProp, index) => {
-                      const category = linkProp.category
-                      const linkedCategoryItems = data[category]
+                  const key                 = `${linkProp}-${index}`
+                  const category            = linkProp.category
+                  const linkedCategoryItems = data[category]
 
-                      return (
-                        <div className="subcategory-container">
-                          <h2>{linkProp.title}</h2>
-                          {
-                            linkedCategoryItems
-                              .filter((linkedItem) => linkedItem[linkProp.destinationPropName] === item[linkProp.propName])
-                              .map((linkedItem) => {
-                                const linkedItemTitle = metadata[category].name(linkedItem)
-                                const handleLink      = (event) => {
-                                  event.preventDefault()
-                                  this.handleLink(linkedItem, category)
-                                }
-                                return (
-                                  <div>
-                                    <a href="/" key={/*linkedItem.id*/index} onClick={handleLink}>{ linkedItemTitle }</a>
-                                  </div>
-                                )
-                            })}
-                        </div>
-                    )
+                  return (
+                    <div className="subcategory-container" key={key}>
+                      <h2>{linkProp.title}</h2>
+                      {
+                        linkedCategoryItems
+                          .filter((linkedItem) => linkedItem[linkProp.destinationPropName] === item[linkProp.propName])
+                          .map((linkedItem) => {
+                            const linkedItemTitle = metadata[category].name(linkedItem)
+                            const handleLink      = (event) => {
+                              event.preventDefault()
+                              this.handleLink(linkedItem, category)
+                            }
+                            const key = `${linkedItem.id}-${category}`
+
+                            return (
+                              <div key={key}>
+                                <a href="/" onClick={handleLink}>{ linkedItemTitle }</a>
+                              </div>
+                            )
+                        })}
+                    </div>
+                  )
                 })
               }
             </div>
