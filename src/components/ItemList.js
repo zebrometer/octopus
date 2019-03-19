@@ -33,8 +33,10 @@ class ItemList extends React.Component {
 
         {
           categoryItems.map((item) => {
+            const key=`${selectedCategory}-${item.id}`
+
             return <Item              
-              key={item.id}
+              key={key}
               item={item}
               data={data}
               compact={false}

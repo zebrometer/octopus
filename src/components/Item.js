@@ -13,6 +13,18 @@ export default class Item extends React.Component {
     categoryMetadata:   PropTypes.object.isRequired,    
   }
 
+  state = {
+    initted: false,
+  }
+
+  componentDidMount() {
+    this.setState({ initted: false }, () => {
+      setTimeout(() => {
+        this.setState({ initted: true })
+      }, 0)
+    })    
+  }
+
   renderHighlight = (label, value, key) => {
     const { filterCriteria } = this.props
 
@@ -35,12 +47,15 @@ export default class Item extends React.Component {
 
   render() {
     const { item, categoryMetadata } = this.props
+    const { initted } = this.state
 
-    const title          = item[categoryMetadata.titlePropName]
-    const properties     = categoryMetadata.properties || []    
+    const className = classnames('xitem', { initted })
+
+    const title      = item[categoryMetadata.titlePropName]
+    const properties = categoryMetadata.properties || []    
 
     return (
-      <div className="item" onClick={this.handleItemSelected}>
+      <div className={className} onClick={this.handleItemSelected}>
         <div className="content">
           <div className="header">
             <div className="title">

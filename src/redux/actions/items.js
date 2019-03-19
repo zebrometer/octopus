@@ -28,7 +28,7 @@ export function loadItems() {
     setTimeout(() => {
       dispatch({ type: ITEMS,  value: data })
       dispatch({ type: FILTER, value: filterCriteria })
-    }, 1000)
+    }, 0)
   }  
 }
 
