@@ -26,7 +26,7 @@ class Navbar extends React.Component {
 
     return (
       <div className="navbar-component">
-        <Menu secondary>
+        <Menu secondary stackable>
           <Menu.Menu position='left'>
             {
               categories.map(({ key, label }) => {
